@@ -7,6 +7,7 @@ import dev.danvega.streamsschedule.repository.LiveStreamRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -41,7 +42,7 @@ public class LiveStreamController {
     // POST http://localhost:8080/streams/
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public LiveStream create(@RequestBody LiveStream stream) {
+    public LiveStream create(@Valid @RequestBody LiveStream stream) {
         return repository.create(stream);
     }
 
