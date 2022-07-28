@@ -22,7 +22,7 @@ For building and running the application you need:
 
 MacOS/Linux : 
 ```sh
-./mvnw spring-boot:run`=
+./mvnw spring-boot:run
 ```
 
 Windows : 
