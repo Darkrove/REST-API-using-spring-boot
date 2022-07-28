@@ -45,6 +45,7 @@ public class LiveStreamController {
         return repository.create(stream);
     }
 
+    // PUT http://localhost:8080/streams/id={id}
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/id={id}")
     public void update(@PathVariable String id, @RequestBody LiveStream stream) {
