@@ -22,7 +22,7 @@ public class LiveStreamRepository {
                     Spring Boot is very convenient to use when building REST APIs; it allows you to start with minimal configurations.
                     But there’s always room for trouble to creep in. Join us for the next IntelliJ IDEA Live Stream to learn how best to avoid this trouble in
                     developing your project. During the February show, Dan Vega will show us how to make sure we’re following good practices when working with Spring Initializr.""",
-                "https://www.twtich.tv/sajjadshaikh",
+                "https://www.youtube.com/channel/UCeUwCK7pGFp7lvDU-CvLXaQ",
                 LocalDateTime.of(2022,2,16,11,0),
                 LocalDateTime.of(2022,2,16,12,0)
         ));
