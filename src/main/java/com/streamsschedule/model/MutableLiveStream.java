@@ -1,4 +1,4 @@
-package dev.danvega.streamsschedule.model;
+package com.streamsschedule.model;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

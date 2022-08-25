@@ -1,4 +1,4 @@
-package dev.danvega.streamsschedule.model;
+package com.streamsschedule.model;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -10,6 +10,7 @@ public class ImmutableLiveStream {
     private final String streamUrl;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
+
 
     public ImmutableLiveStream(String id, String title, String description, String streamUrl, LocalDateTime startDate, LocalDateTime endDate) {
         this.id = id;

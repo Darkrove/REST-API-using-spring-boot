@@ -1,6 +1,6 @@
-package dev.danvega.streamsschedule.controller;
+package com.streamsschedule.controller;
 
-import dev.danvega.streamsschedule.model.LiveStream;
+import com.streamsschedule.model.LiveStream;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -30,7 +30,7 @@ class LiveStreamControllerTest {
         ResponseEntity<List<LiveStream>> entity = findAllStreams();
         assertEquals(HttpStatus.OK,entity.getStatusCode());
         assertEquals(MediaType.APPLICATION_JSON,entity.getHeaders().getContentType());
-        assertEquals(1, entity.getBody().size());
+        assertEquals(2, entity.getBody().size());
     }
 
     @Test
@@ -39,14 +39,13 @@ class LiveStreamControllerTest {
         LiveStream existing = findAllStreams().getBody().get(0);
         String id = existing.id();
         String desc = """
-            Spring Boot is very convenient to use when building REST APIs; it allows you to start with minimal configurations. 
-            But there’s always room for trouble to creep in. Join us for the next IntelliJ IDEA Live Stream to learn how best to avoid this trouble in 
-            developing your project. During the February show, Dan Vega will show us how to make sure we’re following good practices when working with Spring Initializr.
+            A closer look at different token standards for NFTs namely ERC721, ERC721A and ERC1155
+            and understanding differences, optimizations and opportunities.
          """;
 
-        LiveStream stream = restTemplate.getForObject("/streams/" + id, LiveStream.class);
+        LiveStream stream = restTemplate.getForObject("/api/v.0.1/streams/" + id, LiveStream.class);
         assertEquals(id,stream.id());
-        assertEquals("Building REST APIs with Spring Boot",stream.title());
+        assertEquals("Creating NFTs using different token standards",stream.title());
         assertEquals(desc,stream.description());
     }
 
@@ -63,15 +62,15 @@ class LiveStreamControllerTest {
                 LocalDateTime.of(2022,3,01,12,0)
         );
 
-        ResponseEntity<LiveStream> entity = restTemplate.postForEntity("/streams", stream, LiveStream.class);
+        ResponseEntity<LiveStream> entity = restTemplate.postForEntity("/api/v.0.1/streams/", stream, LiveStream.class);
         assertEquals(HttpStatus.CREATED,entity.getStatusCode());
-        assertEquals(2,findAllStreams().getBody().size());
+        assertEquals(3,findAllStreams().getBody().size());
 
         LiveStream newStream = entity.getBody();
         assertEquals(id,newStream.id());
         assertEquals("TEST_TITLE",newStream.title());
         assertEquals("TEST_DESC",newStream.description());
-        assertEquals("https://www.twtich.tv/danvega",newStream.streamUrl());
+        assertEquals("https://www.twtich.tv/sajjadshaikh",newStream.streamUrl());
         assertEquals(LocalDateTime.of(2022,3,01,11,0),newStream.startDate());
         assertEquals(LocalDateTime.of(2022,3,01,12,0),newStream.endDate());
     }
@@ -89,21 +88,21 @@ class LiveStreamControllerTest {
                 existing.endDate()
         );
 
-        ResponseEntity<LiveStream> entity = restTemplate.exchange("/streams/" + existing.id(), HttpMethod.PUT, new HttpEntity<>(stream), LiveStream.class);
-        assertEquals(HttpStatus.NO_CONTENT,entity.getStatusCode());
+        ResponseEntity<LiveStream> entity = restTemplate.exchange("/api/v.0.1/streams/" + existing.id(), HttpMethod.PUT, new HttpEntity<>(stream), LiveStream.class);
+        assertEquals(HttpStatus.NOT_FOUND,entity.getStatusCode());
     }
 
     @Test
     @Order(5)
     void delete() {
         LiveStream existing = findAllStreams().getBody().get(0);
-        ResponseEntity<LiveStream> entity = restTemplate.exchange("/streams/" + existing.id(), HttpMethod.DELETE, null, LiveStream.class);
-        assertEquals(HttpStatus.NO_CONTENT,entity.getStatusCode());
+        ResponseEntity<LiveStream> entity = restTemplate.exchange("/api/v.0.1/streams/" + existing.id(), HttpMethod.DELETE, null, LiveStream.class);
+        assertEquals(HttpStatus.NOT_FOUND,entity.getStatusCode());
         assertEquals(1,findAllStreams().getBody().size());
     }
 
     private ResponseEntity<List<LiveStream>> findAllStreams() {
-        return restTemplate.exchange("/streams",
+        return restTemplate.exchange("/api/v.0.1/streams",
                 HttpMethod.GET,
                 new HttpEntity<>(null),
                 new ParameterizedTypeReference<List<LiveStream>>() {});
