@@ -1,4 +1,4 @@
-package dev.danvega.streamsschedule.model;
+package com.streamsschedule.model;
 
 import org.junit.jupiter.api.Test;
 

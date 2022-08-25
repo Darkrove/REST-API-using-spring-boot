@@ -1,4 +1,4 @@
-package dev.danvega.streamsschedule.model;
+package com.streamsschedule.model;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
